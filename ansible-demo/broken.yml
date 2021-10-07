@@ -1,0 +1,7 @@
+---
+- name: hello world msg
+  debug:
+    msg: Hello world
+- name: broken debug
+  debug:
+    msg: Hi there

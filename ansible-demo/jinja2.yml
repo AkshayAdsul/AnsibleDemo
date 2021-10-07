@@ -1,0 +1,9 @@
+---
+- name: generate /etc/hosts file
+  hosts: all 
+  order: shuffle 
+  tasks:
+  - name: Render the hosts file template 
+    template:
+      src: hosts.j2
+      dest: /tmp/hosts

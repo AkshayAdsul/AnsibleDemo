@@ -1,0 +1,21 @@
+---
+- name: first play in the first playbook
+  hosts: all
+  tasks:
+    - name: imlcude vars files dynamically
+      include_vars: vars-deb.yml
+      when: ansible_os_family == 'Debian'
+
+    - name: imlcude vars files dynamically
+      include_vars: vars-redhat.yml
+      when: ansible_os_family == 'RedHat'
+
+    - name: Apache is  Installed 
+      package:
+        name: {{ package_name }}
+        state: present
+    - service:
+        name: httpd
+        state: started
+      name: Apache is started
+...

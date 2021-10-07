@@ -1,0 +1,13 @@
+---
+- name: First play in the first playbook
+  hosts: all
+  vars:
+    user_name: james
+  vars_files:
+   - vars/varsdemo.yml 
+  tasks:
+    - name: User {{ user_name }} has been created 
+      user:
+        name: "{{ user_name }}"
+        state: present
+...

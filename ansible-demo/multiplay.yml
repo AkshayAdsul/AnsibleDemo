@@ -1,0 +1,24 @@
+---
+- name: first play 
+  hosts: webservers
+  tasks:
+    - name: Apache is  Installed 
+      yum:
+        name: httpd
+        state: present
+    - name: Apache is started
+      service:
+        state: started
+        name: httpd
+    - copy:
+        src: /home/student/ansible-demo/demofile
+        dest: /tmp 
+- name: second play
+  hosts: dbservers
+  tasks:
+    - name: Mariadb is Installed
+      yum:
+        name: mariadb
+        state: present
+
+...

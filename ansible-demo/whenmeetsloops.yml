@@ -1,0 +1,10 @@
+---
+- name: When meets loops
+  hosts: all
+  tasks:
+  - name: install mariadb-server if enough space on dbdata
+    yum:
+      name: mariadb-server
+      state: latest
+    loop: "{{ ansible_facts.mounts }}"
+    when: item.mount == "/dbdata" and item.size_available > 500000000

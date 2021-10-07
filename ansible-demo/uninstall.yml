@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+  - name: uninstall 
+    yum:
+      name:
+        - httpd
+        - mariadb
+      state: absent
+        

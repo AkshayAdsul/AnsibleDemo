@@ -1,0 +1,20 @@
+---
+- name: install http
+  yum:
+    name: "{{ package_name }}"
+    state: present
+- name: start and enable httpd
+  service:
+    name: httpd
+    state: started
+    enabled: true
+  ignore_errors: true
+- name: render(install) vhost config file
+  template:
+    src: vhostconf.j2
+    dest: /etc/httpd/conf.d/vhost.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart httpd
+

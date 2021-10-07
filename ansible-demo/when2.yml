@@ -1,0 +1,19 @@
+---
+- name: Demonstrate the "in" keyword
+  hosts: all
+  vars:
+    supported_distros:
+    - RedHat
+    - Fedora
+  tasks:
+  - include_vars: vars-deb.yml
+    when: ansible_os_family == 'Debian'
+  - include_vars: vars-rhel.yml
+    when: ansible_os_family == 'RedHat'
+  - name: UnInstall httpd using yum, where supported
+    package:
+      name: "{{ packagename }}"
+      state: absent
+    when:
+      - ansible_distribution in supported_distros 
+      - ansible_distribution_major_version == "7"

@@ -1,0 +1,13 @@
+---
+- name: Installs a package and prints the result
+  hosts: all
+  tasks:
+  - name: Install the package
+    yum:
+      name: httpd
+      state: installed
+    register: install_result
+  - debug:
+      var: install_result
+  - name: run a command
+    command: cat /etc/hosts

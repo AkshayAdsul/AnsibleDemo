@@ -1,0 +1,5 @@
+---
+- name: demo for role
+  hosts: webservers
+  roles:
+    - akshay.demorole

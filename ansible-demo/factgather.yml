@@ -1,0 +1,10 @@
+- name: Fact dump
+  hosts: all
+  gather_facts: no
+  tasks:
+  - name: run the setup module
+    setup:
+      filter: '*mounts*'
+  - name: Print all facts
+    debug:
+      var: ansible_facts

@@ -1,0 +1,27 @@
+---
+- name: first play 
+  hosts: servera
+  #force_handlers: yes
+  #ignore_errors: true 
+  tasks:
+    - name: copy the sshd config file
+      copy:
+        src: handler_sshd_config 
+        dest: /etc/ssh/sshd_config
+      notify: 
+        - sshd is restarted
+    - name: Apache is  Installed 
+      yum:
+        name: httpd 
+        state: present
+      ignore_errors: true
+    - name: Apache is restarted 
+      service:
+        name: httpd
+        state: started
+      ignore_errors: true
+  handlers:
+    - name: sshd is restarted
+      service:
+        name: sshd
+        state: restarted

@@ -1,0 +1,11 @@
+---
+- name: first play 
+  hosts: all
+  vars_files: 
+    - vars.yml    
+  tasks:
+    - name: Create the user {{ user_name }}
+      user:
+        name: "{{ user_name }}"
+        state: present
+        password: "{{ pwd | password_hash('sha512') }}"

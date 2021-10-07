@@ -1,0 +1,13 @@
+- name: Examine all stat output of /dbdata
+  hosts: 
+    - servera
+    - serverc
+    - 'dev,!webservers'
+  tasks:
+  - name: stat /dbdata
+    stat:
+      path: /dbdata
+    register: results
+  - name: Display stat results
+    debug:
+      var: results

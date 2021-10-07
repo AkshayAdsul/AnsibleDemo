@@ -1,0 +1,16 @@
+servera
+
+[webservers]
+serverb
+serverc
+
+[dbservers]
+serverd
+
+[dev]
+serverb
+serverd
+
+[prod]
+serverc
+

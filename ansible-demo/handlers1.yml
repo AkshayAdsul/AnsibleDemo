@@ -1,0 +1,20 @@
+---
+- name: first play 
+  hosts: servera
+  tasks:
+    - name: copy the sshd config file
+      copy:
+        src: handler_sshd_config 
+        dest: /etc/ssh/sshd_config
+      register: configupdate
+    - name: sshd is restarted
+      service:
+        name: sshd
+        state: restarted
+      when: configupdate is changed 
+    - name: display results of configupdate
+      debug:
+        var: configupdate
+    - name: demo for include and import
+      import_tasks: broken.yml
+

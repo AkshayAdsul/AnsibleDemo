@@ -1,0 +1,11 @@
+---
+- name: Test Variable is Defined Demo
+  hosts: all
+  vars:
+    my_services: httpd
+  tasks:
+  - name: "{{ my_services }} package is installed"
+    yum:
+      name: "{{ my_services }}"
+      state: present
+    when: my_service is defined

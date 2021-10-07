@@ -1,0 +1,48 @@
+---
+- name: setup up hosts that have an vdb device
+  hosts: all
+  ignore_errors: yes
+  tasks:
+  - name: getting out with a nice failure message if there is no second disk
+    fail:
+      msg: there is no second disk
+    when: ansible_facts['devices']['vdb'] is not defined
+  - name: create a partition
+    parted:
+      device: /dev/vdb
+      number: 1
+      state: present
+  - name: create a volume group
+    lvg:
+      pvs: /dev/vdb1
+      vg: vgfiles
+  - name: run the setup module so that we can use updated facts
+    setup:
+  - name: get vg size and convert to integer in new variable
+    set_fact:
+      vgsize: "{{ ansible_facts['lvm']['vgs']['vgfiles']['size_g'] | int }}"
+  - name: show vgsize value
+    debug:
+      var: "{{ vgsize }}"
+  - name: create an LVM on big volume groups
+    lvol:
+      vg: vgfiles
+      lv: lvfiles
+      size: 1.5g
+    when: vgsize | int > 2 
+  - name: create an LVM on small volume groups
+    lvol:
+      vg: vgfiles
+      lv: lvfiles
+      size: 1000m 
+    when: vgsize | int <= 1
+  - name: formatting the XFS filesystem
+    filesystem:
+      dev: /dev/vgfiles/lvfiles
+      fstype: xfs
+  - name: mounting /dev/vgfile/lvfiles
+    mount:
+      path: /file
+      state: mounted
+      src: /dev/vgfiles/lvfiles
+      fstype: xfs

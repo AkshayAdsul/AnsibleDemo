@@ -1,0 +1,14 @@
+---
+- name: Display installed packages
+  hosts: servera
+  tasks:
+  - name: Gather info on installed packages
+    package_facts:
+       manager: auto
+  - name: List installed packages
+    debug:
+      var: ansible_facts.packages
+  - name: Display ModemManager release
+    debug:
+      msg: "Version {{ansible_facts.packages['ModemManager-glib'][0].release}}"
+    when: "'ModemManager-glib' in ansible_facts.packages"

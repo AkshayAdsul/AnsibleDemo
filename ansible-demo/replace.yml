@@ -1,0 +1,12 @@
+- hosts: servera
+  tasks:
+    - name: Ansible replace fox example
+      replace:
+        path: /story
+        regexp: '[fF]ox' 
+        replace: "Bear"
+    - name: Ansible replace grapes example
+      replace:
+        path: /story
+        regexp: '[gG]rapes' 
+        replace: "Apples"
