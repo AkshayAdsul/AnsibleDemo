@@ -1,10 +1,15 @@
 ---
 - hosts: all
+  name: First play for install and starting the services
   tasks:
-  - name: uninstall 
+  - name: install 
     yum:
-      name:
-        - httpd
-        - mariadb
-      state: absent
+            name:
+             - httpd
+             - mariadb
+            state: install
+  - name: Start
+    service:
+      state: started
+      name: httpd
         

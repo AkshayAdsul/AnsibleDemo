@@ -14,3 +14,11 @@ serverd
 [prod]
 serverc
 
+[serverswithips]
+192.168.1.[1:10]
+
+[singapore:children]
+webservers
+dev
+
+
