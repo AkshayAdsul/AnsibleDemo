@@ -36,7 +36,7 @@
 
     - use execution evironments for frequently executed Ansible operations which require customiations in the form of collections, python dependencies, and system executables
 
-    - use ansible-lint in a pipeline
+    - use ansible-lint in a pipeline.
     
 
 
